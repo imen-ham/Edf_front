@@ -3,10 +3,11 @@ import '../styles/Dashboard.css';
 
 export default function Dashboard() {
   const stocksByBase = [
-    { name: 'Magasin', count: 342 },
-    { name: 'BO Nord', count: 280 },
-    { name: 'BO Sud', count: 120 },
-    { name: 'Labo', count: 45 },
+    { name: 'Magasin', count: 702 },
+      { name: 'BO Centre', count: 2343 },
+    { name: 'BO Nord', count: 2121 },
+    { name: 'BO Sud', count: 2177 },
+    { name: 'Labo', count: 123 },
   ];
 
   const statusData = [
@@ -29,25 +30,18 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard-container">
-      <div className="dashboard-header">
-        <div className="header-content">
-          <div className="edf-logo">
-            <div className="logo-square"></div>
-            <span className="logo-text">EDF</span>
-          </div>
-          <h1 className="dashboard-title">Dashboard – État global</h1>
-        </div>
-      </div>
 
+      {/* ---- Dashboard Content ---- */}
       <div className="dashboard-content">
         <div className="cards-grid">
 
-          {/* Carte Stocks par emplacement */}
+          {/* Stock par emplacement */}
           <div className="card">
             <div className="card-header">
               <h2 className="card-title">Stocks par emplacement</h2>
               <div className="card-icon">📦</div>
             </div>
+
             <div className="card-body">
               {stocksByBase.map((base, index) => (
                 <div key={index} className="stock-item">
@@ -55,6 +49,7 @@ export default function Dashboard() {
                   <span className="stock-count">{base.count}</span>
                 </div>
               ))}
+
               <div className="stock-total">
                 <span className="total-label">Total</span>
                 <span className="total-count">{totalStock}</span>
@@ -62,12 +57,13 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Carte Statuts */}
+          {/* Statuts */}
           <div className="card">
             <div className="card-header">
               <h2 className="card-title">Statuts</h2>
               <div className="card-icon">📊</div>
             </div>
+
             <div className="card-body">
               {statusData.map((item, index) => (
                 <div key={index} className="status-item">
@@ -75,6 +71,7 @@ export default function Dashboard() {
                     <span className="status-icon">{item.icon}</span>
                     <span className="status-name">{item.status}</span>
                   </div>
+
                   <span className="status-count" style={{ color: item.color }}>
                     {item.count}
                   </span>
@@ -92,6 +89,7 @@ export default function Dashboard() {
               <h2 className="card-title">Évolution mensuelle</h2>
               <div className="card-icon">📈</div>
             </div>
+
             <div className="card-body">
               <div className="chart">
                 {monthlyData.map((data, index) => (
@@ -101,17 +99,18 @@ export default function Dashboard() {
                         className="chart-bar"
                         style={{ height: `${data.value}%` }}
                       >
-                        <span className="bar-value">{Math.round(data.value)}%</span>
+                        <span className="bar-value">{data.value}%</span>
                       </div>
                     </div>
+
                     <span className="chart-label">{data.month}</span>
                   </div>
                 ))}
               </div>
             </div>
+
           </div>
         </div>
-
       </div>
     </div>
   );

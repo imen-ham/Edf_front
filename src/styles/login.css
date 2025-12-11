@@ -1,9 +1,35 @@
+/* Variables de couleurs EDF Pastel */
+:root {
+  /* Pastel Blue */
+  --edf-blue: #72A7FF;         /* Bleu pastel principal */
+  --edf-blue-dark: #4F8EE8;    /* Bleu pastel plus soutenu */
+  --edf-blue-900: #3F6EBA;
+  --edf-blue-800: #497ECC;
+  --edf-blue-700: #5A8EE0;
+  --edf-blue-50: #E9F2FF;
+
+  /* Pastel Orange */
+  --edf-orange: #FFB88A;
+  --edf-orange-dark: #FFA870;
+  --edf-orange-400: #FFC9A8;
+
+  /* Grays doux */
+  --gray-50: #FAFAFA;
+  --gray-100: #F2F4F7;
+  --gray-600: #6B7280;
+  --gray-900: #1F2937;
+
+  --white: #ffffff;
+}
+
+/* ===== LOGIN ===== */
+
 .login-container {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--edf-blue) 0%, var(--edf-blue-dark) 100%);
   padding: 20px;
 }
 
@@ -29,7 +55,7 @@
 }
 
 .login-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--edf-blue) 0%, var(--edf-blue-dark) 100%);
   color: white;
   padding: 40px 30px;
   text-align: center;
@@ -78,9 +104,9 @@
 .form-group input:focus,
 .form-group select:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: var(--edf-blue);
   background: white;
-  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 0 0 4px rgba(114, 167, 255, 0.25);
 }
 
 .form-group input.error,
@@ -100,7 +126,7 @@
 .submit-btn {
   width: 100%;
   padding: 16px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--edf-blue) 0%, var(--edf-blue-dark) 100%);
   color: white;
   border: none;
   border-radius: 10px;
@@ -113,7 +139,7 @@
 
 .submit-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 10px 25px rgba(114, 167, 255, 0.35);
 }
 
 .submit-btn:active {
@@ -126,7 +152,7 @@
 }
 
 .forgot-password {
-  color: #667eea;
+  color: var(--edf-blue-dark);
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
@@ -136,7 +162,7 @@
 }
 
 .forgot-password:hover {
-  color: #764ba2;
+  color: var(--edf-blue);
   text-decoration: underline;
 }
 
@@ -147,14 +173,14 @@
 }
 
 .form-footer p a {
-  color: #667eea;
+  color: var(--edf-blue-dark);
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
 }
 
 .form-footer p a:hover {
-  color: #764ba2;
+  color: var(--edf-blue);
   text-decoration: underline;
 }
 

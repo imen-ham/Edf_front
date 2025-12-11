@@ -1,11 +1,15 @@
-import React from 'react';
-import { Zap, Camera, Box, BarChart3, Network, LogIn, UserPlus } from 'lucide-react';
+import React, { useState } from 'react';
+import { Zap, Camera, Box, BarChart3, Network, LogIn, UserPlus, Menu, X } from 'lucide-react';
 import '../styles/Home.css';
+import edfLogo from '../edf.png'; 
 
 export default function Header({ currentPage, setCurrentPage }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <header className="header">
       <div className="header-content">
+
         {/* Logo */}
         <div 
           className="header-logo"
@@ -13,7 +17,11 @@ export default function Header({ currentPage, setCurrentPage }) {
           onClick={() => setCurrentPage('home')}
         >
           <div className="logo-icon">
-            <Zap />
+            <img 
+              src={edfLogo} 
+              alt="EDF Logo" 
+              style={{ width: '3rem', height: '3rem', objectFit: 'contain' }} 
+            />
           </div>
           <div className="logo-text">
             <h1>CPL Tracker 360</h1>
@@ -21,7 +29,15 @@ export default function Header({ currentPage, setCurrentPage }) {
           </div>
         </div>
 
-        {/* Navigation */}
+        {/* MENU BURGER - visible en mobile */}
+        <button 
+          className="burger-btn"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
+
+        {/* MENU DESKTOP */}
         <nav className="header-nav">
           <button 
             className="nav-button"
@@ -60,7 +76,7 @@ export default function Header({ currentPage, setCurrentPage }) {
           </button>
         </nav>
 
-        {/* Boutons d'authentification */}
+        {/* BOUTONS DESKTOP */}
         <div className="header-auth">
           <button 
             className="auth-button login-btn"
@@ -79,6 +95,23 @@ export default function Header({ currentPage, setCurrentPage }) {
           </button>
         </div>
       </div>
+
+      {/* MENU MOBILE DÉROULANT */}
+      {menuOpen && (
+        <div className="mobile-menu">
+          <button className="nav-button" onClick={() => setCurrentPage('scanner')}>Scanner & Saisir</button>
+          <button className="nav-button" onClick={() => setCurrentPage('actions')}>Actions</button>
+          <button className="nav-button" onClick={() => setCurrentPage('dashboard')}>Dashboard</button>
+          <button className="nav-button" onClick={() => setCurrentPage('mapflow')}>MapFlow</button>
+
+          <button className="auth-button login-btn" onClick={() => setCurrentPage('login')}>
+            <LogIn size={18} /> Connexion
+          </button>
+          <button className="auth-button register-btn" onClick={() => setCurrentPage('register')}>
+            <UserPlus size={18} /> Inscription
+          </button>
+        </div>
+      )}
     </header>
   );
 }

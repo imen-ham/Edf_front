@@ -3,18 +3,30 @@
 // ============================================
 
 import React, { useState } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 import '../styles/MapFlow.css';
+
+// Correction icône par défaut Leaflet
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+});
 
 export default function MapFlow() {
   const [selectedBase, setSelectedBase] = useState(null);
   const [viewMode, setViewMode] = useState('map'); // 'map' ou 'flow'
   const [selectedFlow, setSelectedFlow] = useState(null);
 
+  // Bases avec coordonnées lat/lng pour Leaflet
   const bases = [
     { 
       id: 1, 
       name: 'Magasin', 
-      position: { top: '55%', left: '35%' },
+      position: { lat: 41.9268, lng: 8.7369 },
       stock: 342,
       status: 'active',
       coordinates: '41.9268° N, 8.7369° E',
@@ -24,7 +36,7 @@ export default function MapFlow() {
     { 
       id: 2, 
       name: 'BO Nord', 
-      position: { top: '25%', left: '45%' },
+      position: { lat: 42.7028, lng: 9.4507 },
       stock: 280,
       status: 'active',
       coordinates: '42.7028° N, 9.4507° E',
@@ -34,7 +46,7 @@ export default function MapFlow() {
     { 
       id: 3, 
       name: 'BO Sud', 
-      position: { top: '75%', left: '25%' },
+      position: { lat: 41.6761, lng: 8.9039 },
       stock: 120,
       status: 'warning',
       coordinates: '41.6761° N, 8.9039° E',
@@ -44,7 +56,7 @@ export default function MapFlow() {
     { 
       id: 4, 
       name: 'Labo', 
-      position: { top: '45%', left: '85%' },
+      position: { lat: 42.0, lng: 9.3 }, // approximatif
       stock: 45,
       status: 'inactive',
       coordinates: 'Localisation Labo',
@@ -52,9 +64,9 @@ export default function MapFlow() {
       color: '#E74C3C'
     },
     { 
-      id: 4, 
+      id: 5,  
       name: 'Retour Constructeur', 
-      position: { top: '45%', left: '85%' },
+      position: { lat: 42.0, lng: 9.35 }, // approximatif
       stock: 45,
       status: 'inactive',
       coordinates: 'Hors site',
@@ -134,241 +146,197 @@ export default function MapFlow() {
 
   return (
     <div className="mapflow-container">
-      <div className="mapflow-header">
-        <div className="header-content">
-          <div className="edf-logo">
-            <div className="logo-square"></div>
-            <span className="logo-text">EDF</span>
-          </div>
-          <h1 className="mapflow-title">Map & Flow - Visualisation des flux</h1>
-        </div>
+
+      {/* View Mode Selector */}
+      <div className="view-selector">
+        <button 
+          className={`view-button ${viewMode === 'map' ? 'active' : ''}`}
+          onClick={() => setViewMode('map')}
+        >
+          🗺️ Vue Carte
+        </button>
+        <button 
+          className={`view-button ${viewMode === 'flow' ? 'active' : ''}`}
+          onClick={() => setViewMode('flow')}
+        >
+          📊 Vue Flux
+        </button>
       </div>
 
-      <div className="mapflow-content">
-        {/* View Mode Selector */}
-        <div className="view-selector">
-          <button 
-            className={`view-button ${viewMode === 'map' ? 'active' : ''}`}
-            onClick={() => setViewMode('map')}
-          >
-            🗺️ Vue Carte
-          </button>
-          <button 
-            className={`view-button ${viewMode === 'flow' ? 'active' : ''}`}
-            onClick={() => setViewMode('flow')}
-          >
-            📊 Vue Flux
-          </button>
-        </div>
+      <div className="mapflow-main">
+        {viewMode === 'map' ? (
+          <div className="map-section">
+            <MapContainer 
+              center={[42.0396, 9.0129]} // centre de la Corse
+              zoom={8}
+              style={{ height: '500px', width: '100%' }}
+            >
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; OpenStreetMap contributors'
+              />
 
-        <div className="mapflow-main">
-          {viewMode === 'map' ? (
-            <>
-              {/* Map View */}
-              <div className="map-section">
-                <div className="map-container">
-                  <div className="map-background">
-                    <div className="corsica-shape"></div>
-                  </div>
+              {/* GeoJSON pour la Corse */}
+              <GeoJSON
+                data={{
+                  "type": "Feature",
+                  "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [[
+                      [8.0, 41.2],
+                      [9.8, 41.2],
+                      [9.8, 43.0],
+                      [8.0, 43.0],
+                      [8.0, 41.2]
+                    ]]
+                  }
+                }}
+                style={{
+                  color: "#0050A0",
+                  weight: 2,
+                  fillColor: "#bbdefb",
+                  fillOpacity: 0.2
+                }}
+              />
 
-                  {/* Bases on Map */}
-                  {bases.map(base => (
-                    <div
-                      key={base.id}
-                      className={`base-marker ${selectedBase?.id === base.id ? 'selected' : ''}`}
-                      style={{ 
-                        top: base.position.top, 
-                        left: base.position.left,
-                        borderColor: base.color
-                      }}
-                      onClick={() => setSelectedBase(base)}
-                    >
-                      <div 
-                        className="marker-dot"
-                        style={{ backgroundColor: base.color }}
-                      ></div>
-                      <div className="marker-label">{base.name}</div>
-                      <div className="marker-stock">{base.stock}</div>
-                    </div>
-                  ))}
+              {bases.map(base => (
+                <Marker
+                  key={base.id}
+                  position={[base.position.lat, base.position.lng]}
+                  eventHandlers={{
+                    click: () => setSelectedBase(base),
+                  }}
+                >
+                  <Popup>
+                    <strong>{base.name}</strong><br/>
+                    Stock: {base.stock}<br/>
+                    Responsable: {base.responsable}
+                  </Popup>
+                </Marker>
+              ))}
+            </MapContainer>
 
-                  {/* Flow Lines */}
-                  {flows.filter(f => f.status === 'en-cours').map(flow => (
-                    <div
-                      key={flow.id}
-                      className="flow-line"
-                      style={{
-                        top: flow.fromBase.position.top,
-                        left: flow.fromBase.position.left,
-                        width: `${Math.abs(
-                          parseFloat(flow.toBase.position.left) - 
-                          parseFloat(flow.fromBase.position.left)
-                        )}%`,
-                        height: `${Math.abs(
-                          parseFloat(flow.toBase.position.top) - 
-                          parseFloat(flow.fromBase.position.top)
-                        )}%`,
-                        transform: `rotate(${Math.atan2(
-                          parseFloat(flow.toBase.position.top) - parseFloat(flow.fromBase.position.top),
-                          parseFloat(flow.toBase.position.left) - parseFloat(flow.fromBase.position.left)
-                        ) * 180 / Math.PI}deg)`
-                      }}
-                    >
-                      <div className="flow-arrow">→</div>
-                    </div>
-                  ))}
+            {/* Base Details Panel */}
+            <div className="details-panel">
+              {!selectedBase ? (
+                <div className="no-selection">
+                  <div className="no-selection-icon">🗺️</div>
+                  <h3>Sélectionnez une base</h3>
+                  <p>Cliquez sur un marqueur sur la carte pour afficher les détails</p>
                 </div>
+              ) : (
+                <div className="base-details">
+                  <div className="details-header">
+                    <h2>{selectedBase.name}</h2>
+                    <span 
+                      className="status-indicator"
+                      style={{ backgroundColor: getStatusColor(selectedBase.status) }}
+                    >
+                      {selectedBase.status === 'active' ? '🟢 Active' : 
+                       selectedBase.status === 'warning' ? '🟠 Stock faible' : 
+                       '🔴 Hors site'}
+                    </span>
+                  </div>
 
-                {/* Map Legend */}
-                <div className="map-legend">
-                  <h4>Légende</h4>
-                  <div className="legend-item">
-                    <span className="legend-dot" style={{ backgroundColor: '#27AE60' }}></span>
-                    <span>Base active</span>
-                  </div>
-                  <div className="legend-item">
-                    <span className="legend-dot" style={{ backgroundColor: '#FF6B00' }}></span>
-                    <span>Stock faible</span>
-                  </div>
-                  <div className="legend-item">
-                    <span className="legend-dot" style={{ backgroundColor: '#E74C3C' }}></span>
-                    <span>Hors site</span>
-                  </div>
-                  <div className="legend-item">
-                    <span className="legend-arrow">→</span>
-                    <span>Flux en cours</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Base Details Panel */}
-              <div className="details-panel">
-                {!selectedBase ? (
-                  <div className="no-selection">
-                    <div className="no-selection-icon">🗺️</div>
-                    <h3>Sélectionnez une base</h3>
-                    <p>Cliquez sur un marqueur sur la carte pour afficher les détails</p>
-                  </div>
-                ) : (
-                  <div className="base-details">
-                    <div className="details-header">
-                      <h2>{selectedBase.name}</h2>
-                      <span 
-                        className="status-indicator"
-                        style={{ backgroundColor: getStatusColor(selectedBase.status) }}
-                      >
-                        {selectedBase.status === 'active' ? '🟢 Active' : 
-                         selectedBase.status === 'warning' ? '🟠 Stock faible' : 
-                         '🔴 Hors site'}
-                      </span>
+                  <div className="details-section">
+                    <h4>📊 Stock actuel</h4>
+                    <div className="stock-display">
+                      <span className="stock-number">{selectedBase.stock}</span>
+                      <span className="stock-label">concentrateurs</span>
                     </div>
+                  </div>
 
-                    <div className="details-section">
-                      <h4>📊 Stock actuel</h4>
-                      <div className="stock-display">
-                        <span className="stock-number">{selectedBase.stock}</span>
-                        <span className="stock-label">concentrateurs</span>
-                      </div>
-                    </div>
+                  <div className="details-section">
+                    <h4>📍 Localisation</h4>
+                    <p className="detail-text">{selectedBase.coordinates}</p>
+                  </div>
 
-                    <div className="details-section">
-                      <h4>📍 Localisation</h4>
-                      <p className="detail-text">{selectedBase.coordinates}</p>
-                    </div>
+                  <div className="details-section">
+                    <h4>👤 Responsable</h4>
+                    <p className="detail-text">{selectedBase.responsable}</p>
+                  </div>
 
-                    <div className="details-section">
-                      <h4>👤 Responsable</h4>
-                      <p className="detail-text">{selectedBase.responsable}</p>
-                    </div>
-
-                    <div className="details-section">
-                      <h4>🔄 Flux actifs</h4>
-                      {flows.filter(f => 
-                        (f.from === selectedBase.name || f.to === selectedBase.name) && 
-                        f.status === 'en-cours'
-                      ).map(flow => (
-                        <div key={flow.id} className="flow-item">
-                          <div className="flow-direction">
-                            {flow.from === selectedBase.name ? '📤 Sortie' : '📥 Entrée'}
-                          </div>
-                          <div className="flow-info">
-                            <span className="flow-quantity">{flow.quantity} unités</span>
-                            <span className="flow-destination">
-                              {flow.from === selectedBase.name ? `vers ${flow.to}` : `depuis ${flow.from}`}
-                            </span>
-                          </div>
+                  <div className="details-section">
+                    <h4>🔄 Flux actifs</h4>
+                    {flows.filter(f => 
+                      (f.from === selectedBase.name || f.to === selectedBase.name) && 
+                      f.status === 'en-cours'
+                    ).map(flow => (
+                      <div key={flow.id} className="flow-item">
+                        <div className="flow-direction">
+                          {flow.from === selectedBase.name ? '📤 Sortie' : '📥 Entrée'}
                         </div>
-                      ))}
-                      {flows.filter(f => 
-                        (f.from === selectedBase.name || f.to === selectedBase.name) && 
-                        f.status === 'en-cours'
-                      ).length === 0 && (
-                        <p className="no-flows">Aucun flux en cours</p>
-                      )}
-                    </div>
-
-                    <div className="details-actions">
-                      <button className="btn-action">📦 Nouveau transfert</button>
-                      <button className="btn-action">📊 Voir historique</button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </>
-          ) : (
-            /* Flow View */
-            <div className="flow-view">
-              <div className="flow-table-container">
-                <h3>📊 Liste des flux</h3>
-                <table className="flow-table">
-                  <thead>
-                    <tr>
-                      <th>Date</th>
-                      <th>De</th>
-                      <th>Vers</th>
-                      <th>Quantité</th>
-                      <th>Type</th>
-                      <th>Statut</th>
-                      <th>Arrivée prévue</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {flows.map(flow => (
-                      <tr 
-                        key={flow.id}
-                        className={selectedFlow?.id === flow.id ? 'selected' : ''}
-                        onClick={() => setSelectedFlow(flow)}
-                      >
-                        <td>{flow.date}</td>
-                        <td><strong>{flow.from}</strong></td>
-                        <td><strong>{flow.to}</strong></td>
-                        <td className="quantity-cell">{flow.quantity} unités</td>
-                        <td>
-                          <span className={`type-badge type-${flow.type}`}>
-                            {flow.type === 'transfert' ? '🔄 Transfert' : '↩️ Retour'}
+                        <div className="flow-info">
+                          <span className="flow-quantity">{flow.quantity} unités</span>
+                          <span className="flow-destination">
+                            {flow.from === selectedBase.name ? `vers ${flow.to}` : `depuis ${flow.from}`}
                           </span>
-                        </td>
-                        <td>
-                          <span 
-                            className="status-badge"
-                            style={{ backgroundColor: getFlowStatusColor(flow.status) }}
-                          >
-                            {flow.status === 'en-cours' ? '⏳ En cours' : '✓ Terminé'}
-                          </span>
-                        </td>
-                        <td>{flow.estimatedArrival}</td>
-                        <td>
-                          <button className="btn-icon" title="Détails">👁️</button>
-                          <button className="btn-icon" title="Modifier">✏️</button>
-                        </td>
-                      </tr>
+                        </div>
+                      </div>
                     ))}
-                  </tbody>
-                </table>
-              </div>
+                    {flows.filter(f => 
+                      (f.from === selectedBase.name || f.to === selectedBase.name) && 
+                      f.status === 'en-cours'
+                    ).length === 0 && (
+                      <p className="no-flows">Aucun flux en cours</p>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        ) : (
+          /* Flow View entièrement conservée */
+          <div className="flow-view">
+            <div className="flow-table-container">
+              <h3>📊 Liste des flux</h3>
+              <table className="flow-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>De</th>
+                    <th>Vers</th>
+                    <th>Quantité</th>
+                    <th>Type</th>
+                    <th>Statut</th>
+                    <th>Arrivée prévue</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {flows.map(flow => (
+                    <tr 
+                      key={flow.id}
+                      className={selectedFlow?.id === flow.id ? 'selected' : ''}
+                      onClick={() => setSelectedFlow(flow)}
+                    >
+                      <td>{flow.date}</td>
+                      <td><strong>{flow.from}</strong></td>
+                      <td><strong>{flow.to}</strong></td>
+                      <td className="quantity-cell">{flow.quantity} unités</td>
+                      <td>
+                        <span className={`type-badge type-${flow.type}`}>
+                          {flow.type === 'transfert' ? '🔄 Transfert' : '↩️ Retour'}
+                        </span>
+                      </td>
+                      <td>
+                        <span 
+                          className="status-badge"
+                          style={{ backgroundColor: getFlowStatusColor(flow.status) }}
+                        >
+                          {flow.status === 'en-cours' ? '⏳ En cours' : '✓ Terminé'}
+                        </span>
+                      </td>
+                      <td>{flow.estimatedArrival}</td>
+                      <td>
+                        <button className="btn-icon" title="Détails">👁️</button>
+                        <button className="btn-icon" title="Modifier">✏️</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
 
-              {/* Flow Statistics */}
               <div className="flow-statistics">
                 <h3>📈 Statistiques des flux</h3>
                 <div className="stats-grid">
@@ -401,8 +369,8 @@ export default function MapFlow() {
                 </div>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
