@@ -3,10 +3,10 @@ import '../styles/Dashboard.css';
 
 export default function Dashboard() {
   const stocksByBase = [
-    { name: 'Ajaccio', count: 342 },
-    { name: 'Bastia', count: 280 },
-    { name: 'Propriano', count: 120 },
-    { name: 'Retour constructeur', count: 45 },
+    { name: 'Magasin', count: 342 },
+    { name: 'BO Nord', count: 280 },
+    { name: 'BO Sud', count: 120 },
+    { name: 'Labo', count: 45 },
   ];
 
   const statusData = [
@@ -41,10 +41,11 @@ export default function Dashboard() {
 
       <div className="dashboard-content">
         <div className="cards-grid">
-          {/* Carte Stocks par base */}
+
+          {/* Carte Stocks par emplacement */}
           <div className="card">
             <div className="card-header">
-              <h2 className="card-title">Stocks par base</h2>
+              <h2 className="card-title">Stocks par emplacement</h2>
               <div className="card-icon">📦</div>
             </div>
             <div className="card-body">
@@ -81,6 +82,7 @@ export default function Dashboard() {
               ))}
             </div>
           </div>
+
         </div>
 
         {/* Graphique */}
@@ -109,6 +111,7 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );

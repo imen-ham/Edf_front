@@ -13,7 +13,7 @@ export default function MapFlow() {
   const bases = [
     { 
       id: 1, 
-      name: 'Ajaccio', 
+      name: 'Magasin', 
       position: { top: '55%', left: '35%' },
       stock: 342,
       status: 'active',
@@ -23,7 +23,7 @@ export default function MapFlow() {
     },
     { 
       id: 2, 
-      name: 'Bastia', 
+      name: 'BO Nord', 
       position: { top: '25%', left: '45%' },
       stock: 280,
       status: 'active',
@@ -33,13 +33,23 @@ export default function MapFlow() {
     },
     { 
       id: 3, 
-      name: 'Propriano', 
+      name: 'BO Sud', 
       position: { top: '75%', left: '25%' },
       stock: 120,
       status: 'warning',
       coordinates: '41.6761° N, 8.9039° E',
       responsable: 'Pierre Rossi',
       color: '#FF6B00'
+    },
+    { 
+      id: 4, 
+      name: 'Labo', 
+      position: { top: '45%', left: '85%' },
+      stock: 45,
+      status: 'inactive',
+      coordinates: 'Localisation Labo',
+      responsable: 'Service Logistique',
+      color: '#E74C3C'
     },
     { 
       id: 4, 
@@ -56,8 +66,8 @@ export default function MapFlow() {
   const flows = [
     {
       id: 1,
-      from: 'Bastia',
-      to: 'Ajaccio',
+      from: 'BO Nord',
+      to: 'Magasin',
       quantity: 15,
       date: '10/12/2025',
       status: 'en-cours',
@@ -68,8 +78,8 @@ export default function MapFlow() {
     },
     {
       id: 2,
-      from: 'Ajaccio',
-      to: 'Propriano',
+      from: 'Magasin',
+      to: 'BO Sud',
       quantity: 8,
       date: '09/12/2025',
       status: 'termine',
@@ -80,8 +90,8 @@ export default function MapFlow() {
     },
     {
       id: 3,
-      from: 'Propriano',
-      to: 'Retour Constructeur',
+      from: 'BO Sud',
+      to: 'Labo',
       quantity: 3,
       date: '08/12/2025',
       status: 'en-cours',
@@ -92,8 +102,8 @@ export default function MapFlow() {
     },
     {
       id: 4,
-      from: 'Bastia',
-      to: 'Propriano',
+      from: 'BO Nord',
+      to: 'BO Sud',
       quantity: 12,
       date: '07/12/2025',
       status: 'termine',

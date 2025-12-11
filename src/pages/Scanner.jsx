@@ -1,7 +1,3 @@
-// ============================================
-// FICHIER : pages/Scanner.jsx
-// ============================================
-
 import React, { useState } from 'react';
 import '../styles/Scanner.css';
 
@@ -17,29 +13,27 @@ export default function Scanner() {
     'CPL-2024-A342': {
       code: 'CPL-2024-A342',
       status: 'En stock',
-      base: 'Ajaccio',
+      emplacement: 'Magasin',
       dateArrival: '05/12/2025',
-      manufacturer: 'Linky Solutions',
-      model: 'CPL-Pro-2024',
+      serialNumber: 'SN-2024-A342-987',
+      statut: 'Opérationnel',
       lastMaintenance: '01/12/2025',
       nextMaintenance: '01/03/2026',
-      condition: 'Excellent',
       history: [
         { date: '05/12/2025', action: 'Arrivée en stock', user: 'Jean Dupont' },
-        { date: '03/12/2025', action: 'Transfert depuis Bastia', user: 'Marie Martin' },
+        { date: '03/12/2025', action: 'Transfert depuis BO Nord', user: 'Marie Martin' },
         { date: '01/12/2025', action: 'Maintenance préventive', user: 'Tech Support' }
       ]
     },
     'CPL-2023-B128': {
       code: 'CPL-2023-B128',
       status: 'Posé',
-      base: 'Bastia',
+      emplacement: 'BO Nord',
       dateArrival: '15/11/2025',
-      manufacturer: 'Smart Grid Inc',
-      model: 'CPL-Standard-2023',
+      serialNumber: 'SN-2023-B128-654',
+      statut: 'Opérationnel',
       lastMaintenance: '10/11/2025',
       nextMaintenance: '10/02/2026',
-      condition: 'Bon',
       history: [
         { date: '20/11/2025', action: 'Installation chez client', user: 'Pierre Rossi' },
         { date: '15/11/2025', action: 'Arrivée en stock', user: 'Sophie Bernard' }
@@ -48,13 +42,12 @@ export default function Scanner() {
     'CPL-2024-P089': {
       code: 'CPL-2024-P089',
       status: 'HS',
-      base: 'Propriano',
+      emplacement: 'Labo',
       dateArrival: '01/12/2025',
-      manufacturer: 'Linky Solutions',
-      model: 'CPL-Pro-2024',
+      serialNumber: 'SN-2024-P089-321',
+      statut: 'Défectueux',
       lastMaintenance: '28/11/2025',
       nextMaintenance: 'N/A',
-      condition: 'Défectueux',
       history: [
         { date: '08/12/2025', action: 'Signalé HS', user: 'Luc Santoni' },
         { date: '01/12/2025', action: 'Arrivée en stock', user: 'Admin' }
@@ -276,8 +269,8 @@ export default function Scanner() {
                   <h3>📍 Localisation</h3>
                   <div className="info-grid">
                     <div className="info-item">
-                      <span className="info-label">Base actuelle :</span>
-                      <span className="info-value">{concentratorInfo.base}</span>
+                      <span className="info-label">Emplacement :</span>
+                      <span className="info-value">{concentratorInfo.emplacement}</span>
                     </div>
                     <div className="info-item">
                       <span className="info-label">Date d'arrivée :</span>
@@ -290,16 +283,12 @@ export default function Scanner() {
                   <h3>🔧 Informations techniques</h3>
                   <div className="info-grid">
                     <div className="info-item">
-                      <span className="info-label">Fabricant :</span>
-                      <span className="info-value">{concentratorInfo.manufacturer}</span>
+                      <span className="info-label">Numéro de série :</span>
+                      <span className="info-value">{concentratorInfo.serialNumber}</span>
                     </div>
                     <div className="info-item">
-                      <span className="info-label">Modèle :</span>
-                      <span className="info-value">{concentratorInfo.model}</span>
-                    </div>
-                    <div className="info-item">
-                      <span className="info-label">État :</span>
-                      <span className="info-value">{concentratorInfo.condition}</span>
+                      <span className="info-label">Statut :</span>
+                      <span className="info-value">{concentratorInfo.statut}</span>
                     </div>
                   </div>
                 </div>

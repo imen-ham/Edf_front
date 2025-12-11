@@ -1,7 +1,3 @@
-// ============================================
-// FICHIER : pages/Actions.jsx
-// ============================================
-
 import React, { useState } from 'react';
 import '../styles/Actions.css';
 
@@ -19,10 +15,10 @@ export default function Actions() {
     },
     { 
       id: 2, 
-      title: 'Transfert base', 
+      title: 'Transfert emplacement', 
       icon: '🔄', 
       color: '#0050A0',
-      description: 'Transférer un concentrateur entre bases'
+      description: 'Transférer un concentrateur entre emplacements'
     },
     { 
       id: 3, 
@@ -59,7 +55,7 @@ export default function Actions() {
       id: 1, 
       type: 'Pose', 
       user: 'Jean Dupont', 
-      base: 'Ajaccio', 
+      emplacement: 'Magasin', 
       date: '10/12/2025 14:32',
       status: 'success',
       details: 'Concentrateur CPL-2024-A342'
@@ -68,7 +64,7 @@ export default function Actions() {
       id: 2, 
       type: 'Transfert', 
       user: 'Marie Martin', 
-      base: 'Bastia → Ajaccio', 
+      emplacement: 'BO Nord → Magasin', 
       date: '10/12/2025 13:15',
       status: 'success',
       details: '5 concentrateurs'
@@ -77,7 +73,7 @@ export default function Actions() {
       id: 3, 
       type: 'Dépose HS', 
       user: 'Pierre Rossi', 
-      base: 'Propriano', 
+      emplacement: 'BO Sud', 
       date: '10/12/2025 11:45',
       status: 'warning',
       details: 'Concentrateur défectueux CPL-2023-P89'
@@ -86,7 +82,7 @@ export default function Actions() {
       id: 4, 
       type: 'Maintenance', 
       user: 'Sophie Bernard', 
-      base: 'Bastia', 
+      emplacement: 'Labo', 
       date: '10/12/2025 09:20',
       status: 'success',
       details: 'Maintenance préventive programmée'
@@ -95,7 +91,7 @@ export default function Actions() {
       id: 5, 
       type: 'Retour', 
       user: 'Luc Santoni', 
-      base: 'Retour constructeur', 
+      emplacement: 'Retour constructeur', 
       date: '09/12/2025 16:50',
       status: 'pending',
       details: '3 concentrateurs en attente'
@@ -172,11 +168,9 @@ export default function Actions() {
               <thead>
                 <tr>
                   <th>Type</th>
-                  <th>Utilisateur</th>
-                  <th>Base</th>
-                  <th>Date & Heure</th>
-                  <th>Détails</th>
-                  <th>Statut</th>
+                  <th>Profil</th>
+                  <th>Emplacement</th>
+                  <th>Date</th>
                 </tr>
               </thead>
               <tbody>
@@ -186,16 +180,8 @@ export default function Actions() {
                       <span className="action-type">{action.type}</span>
                     </td>
                     <td>{action.user}</td>
-                    <td>{action.base}</td>
+                    <td>{action.emplacement}</td>
                     <td className="date-cell">{action.date}</td>
-                    <td className="details-cell">{action.details}</td>
-                    <td>
-                      <span className={`status-badge status-${action.status}`}>
-                        {action.status === 'success' && '✓ Terminé'}
-                        {action.status === 'warning' && '⚠ Attention'}
-                        {action.status === 'pending' && '⏳ En cours'}
-                      </span>
-                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -243,11 +229,13 @@ export default function Actions() {
                   <input type="text" placeholder="CPL-2024-XXXX" />
                 </div>
                 <div className="form-group">
-                  <label>Base</label>
+                  <label>Emplacement</label>
                   <select>
-                    <option>Ajaccio</option>
-                    <option>Bastia</option>
-                    <option>Propriano</option>
+                    <option>Magasin</option>
+                    <option>BO Nord</option>
+                    <option>BO Centre</option>
+                    <option>BO Sud</option>
+                    <option>Labo</option>
                   </select>
                 </div>
                 <div className="form-group">
