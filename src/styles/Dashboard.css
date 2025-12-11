@@ -1,0 +1,329 @@
+/* ============================================
+   FICHIER : styles/Dashboard.css
+   ============================================ */
+
+/* ===== VARIABLES COULEURS EDF ===== */
+:root {
+  --edf-blue: #0050A0;
+  --edf-orange: #FF6B00;
+  --edf-light-gray: #F5F5F5;
+  --edf-medium-gray: #E0E0E0;
+  --edf-dark-gray: #333333;
+  --edf-white: #FFFFFF;
+  --success-green: #27AE60;
+  --danger-red: #E74C3C;
+}
+
+/* ===== RESET & BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--edf-light-gray);
+  color: var(--edf-dark-gray);
+}
+
+/* ===== CONTAINER PRINCIPAL ===== */
+.dashboard-container {
+  min-height: 100vh;
+  background-color: var(--edf-light-gray);
+}
+
+/* ===== HEADER ===== */
+.dashboard-header {
+  background: linear-gradient(135deg, var(--edf-blue) 0%, #003d7a 100%);
+  padding: 2rem 3rem;
+  box-shadow: 0 4px 12px rgba(0, 80, 160, 0.15);
+}
+
+.header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.edf-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-square {
+  width: 40px;
+  height: 40px;
+  background-color: var(--edf-orange);
+  border-radius: 6px;
+}
+
+.logo-text {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--edf-white);
+  letter-spacing: 2px;
+}
+
+.dashboard-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--edf-white);
+}
+
+/* ===== CONTENT ===== */
+.dashboard-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 3rem;
+}
+
+/* ===== GRILLE CARTES ===== */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* ===== CARTES ===== */
+.card {
+  background-color: var(--edf-white);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 80, 160, 0.12);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, var(--edf-blue) 0%, #0066cc 100%);
+  color: var(--edf-white);
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.card-icon {
+  font-size: 1.5rem;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+/* ===== STOCKS PAR BASE ===== */
+.stock-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--edf-medium-gray);
+  transition: background-color 0.2s ease;
+}
+
+.stock-item:hover {
+  background-color: var(--edf-light-gray);
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+  border-radius: 8px;
+}
+
+.stock-item:last-child {
+  border-bottom: none;
+}
+
+.stock-name {
+  font-size: 1rem;
+  color: var(--edf-dark-gray);
+  font-weight: 500;
+}
+
+.stock-count {
+  font-size: 1.125rem;
+  color: var(--edf-blue);
+  font-weight: 700;
+}
+
+.stock-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 3px solid var(--edf-blue);
+}
+
+.total-label {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--edf-dark-gray);
+}
+
+.total-count {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--edf-orange);
+}
+
+/* ===== STATUTS ===== */
+.status-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--edf-medium-gray);
+  transition: background-color 0.2s ease;
+}
+
+.status-item:hover {
+  background-color: var(--edf-light-gray);
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+  border-radius: 8px;
+}
+
+.status-item:last-child {
+  border-bottom: none;
+}
+
+.status-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.status-icon {
+  font-size: 1.25rem;
+}
+
+.status-name {
+  font-size: 1rem;
+  color: var(--edf-dark-gray);
+  font-weight: 500;
+}
+
+.status-count {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* ===== GRAPHIQUE ===== */
+.chart-container {
+  margin-top: 2rem;
+}
+
+.chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 300px;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.chart-bar-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.chart-bar-wrapper {
+  width: 100%;
+  height: 250px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.chart-bar {
+  width: 100%;
+  max-width: 80px;
+  background: linear-gradient(180deg, var(--edf-blue) 0%, #0066cc 100%);
+  border-radius: 8px 8px 0 0;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 0.5rem;
+}
+
+.chart-bar:hover {
+  background: linear-gradient(180deg, var(--edf-orange) 0%, #ff8533 100%);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+}
+
+.bar-value {
+  color: var(--edf-white);
+  font-size: 0.875rem;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.chart-bar:hover .bar-value {
+  opacity: 1;
+}
+
+.chart-label {
+  font-size: 0.875rem;
+  color: var(--edf-dark-gray);
+  font-weight: 500;
+  text-align: center;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-content {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    padding: 1.5rem;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .dashboard-title {
+    font-size: 1.5rem;
+  }
+  
+  .chart {
+    height: 250px;
+  }
+  
+  .chart-bar-wrapper {
+    height: 200px;
+  }
+}
