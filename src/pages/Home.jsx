@@ -1,12 +1,11 @@
 import React from 'react';
-import Header from '../components/Header';
 import { Camera, TrendingUp, Activity, Network, Box, Zap } from 'lucide-react';
 import '../styles/Home.css';
 
 export default function Home() {
   return (
     <div className="home-container">
-      <Header />
+     
 
       {/* SECTION - Hero */}
       <section className="hero-section">
