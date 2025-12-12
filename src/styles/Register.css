@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #6eb0f1 0%, var(--edf-blue-dark) 100%);
     padding: 20px;
   }
   
@@ -29,7 +29,7 @@
   }
   
   .register-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background:linear-gradient(135deg, #6eb0f1 0%, var(--edf-blue-dark) 100%);
     color: white;
     padding: 40px 30px;
     text-align: center;
@@ -185,3 +185,4 @@
       margin-bottom: 25px;
     }
   }
+  

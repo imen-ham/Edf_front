@@ -628,6 +628,7 @@ body {
 /* Smooth transitions */
 button, a {
   transition: all 0.3s ease;
+  display: none;
 }
 
 /* Focus states pour accessibilité */
@@ -737,6 +738,16 @@ a:focus {
   .auth-button svg {
     margin: 0;
   }
+    button, a {
+  transition: all 0.3s ease;
+  display: block;
+}
+#bouttonconnexionmobile{
+  display: none;
+}
+#bouttoninscritionmobile{
+  display: none;
+}
 }
 
 @media (max-width: 768px) {
@@ -766,4 +777,15 @@ a:focus {
   .auth-button span {
     display: inline;
   }
+  button, a {
+  transition: all 0.3s ease;
+    display: block;
+}
+#bouttonconnexionmobile{
+  display: none;
+}
+#bouttoninscritionmobile{
+  display: none;
+}
+
 }

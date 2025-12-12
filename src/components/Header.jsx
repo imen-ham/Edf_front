@@ -104,10 +104,10 @@ export default function Header({ currentPage, setCurrentPage }) {
           <button className="nav-button" onClick={() => setCurrentPage('dashboard')}>Dashboard</button>
           <button className="nav-button" onClick={() => setCurrentPage('mapflow')}>MapFlow</button>
 
-          <button className="auth-button login-btn" onClick={() => setCurrentPage('login')}>
+          <button className="auth-button login-btn" id='bouttonconnexionmobile' onClick={() => setCurrentPage('login')}>
             <LogIn size={18} /> Connexion
           </button>
-          <button className="auth-button register-btn" onClick={() => setCurrentPage('register')}>
+          <button className="auth-button register-btn"id='bouttoninscritionmobile' onClick={() => setCurrentPage('register')}>
             <UserPlus size={18} /> Inscription
           </button>
         </div>
