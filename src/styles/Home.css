@@ -362,7 +362,7 @@ body {
 }
 
 .stat-label {
-  color: var(--gray-600);
+  color: white;
   font-size: 1rem;
 }
 
@@ -787,5 +787,23 @@ a:focus {
 #bouttoninscritionmobile{
   display: none;
 }
+#logoutbouton{
+  background-color: #FF6600 !important;
+  color: white !important;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  display: none;
+}
+
+#logoutbouton:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+
+
 
 }

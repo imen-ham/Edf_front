@@ -43,7 +43,7 @@ export default function Home() {
                 <div className="concentrateurs-card">
                   <div className="concentrateurs-label">Concentrateurs suivis</div>
                   <div className="concentrateurs-value">
-                    787 <span className="units">unités</span>
+                    6386 <span className="units">unités</span>
                   </div>
                 </div>
 
@@ -62,9 +62,9 @@ export default function Home() {
       <section className="stats-section">
         <div className="stats-content">
           {[
-            { value: '787', label: 'Concentrateurs actifs', icon: Box, color: 'orange' },
-            { value: '4', label: 'Bases opérationnelles', icon: Network, color: 'blue' },
-            { value: '99.8%', label: 'Taux de disponibilité', icon: Zap, color: 'orange' }
+            { value: '6386', label: 'Concentrateurs actifs', icon: Box, color: 'orange' },
+            { value: '3', label: 'Bases opérationnelles', icon: Network, color: 'blue' },
+            { value: '85.53%', label: 'Taux de disponibilité', icon: Zap, color: 'orange' }
           ].map((stat, index) => (
             <div key={index} className="stat-card">
               <div className="stat-card-header">
@@ -140,10 +140,7 @@ export default function Home() {
               Notre système analyse en temps réel les flux de concentrateurs et vous alerte sur les anomalies.
             </p>
 
-            <button className="btn-ia">
-              Voir les alertes IA
-              <TrendingUp />
-            </button>
+           
           </div>
 
           {/* RIGHT */}

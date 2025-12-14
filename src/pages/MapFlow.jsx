@@ -25,24 +25,15 @@ export default function MapFlow() {
   const bases = [
     { 
       id: 1, 
-      name: 'Magasin', 
+      name: 'BO Centre', 
       position: { lat: 41.9268, lng: 8.7369 },
       stock: 342,
       status: 'active',
       coordinates: '41.9268° N, 8.7369° E',
-      responsable: 'Jean Dupont',
+      responsable: 'laeti mezair',
       color: '#27AE60'
     },
-    { 
-      id: 2, 
-      name: 'BO Nord', 
-      position: { lat: 42.7028, lng: 9.4507 },
-      stock: 280,
-      status: 'active',
-      coordinates: '42.7028° N, 9.4507° E',
-      responsable: 'Marie Martin',
-      color: '#0050A0'
-    },
+   
     { 
       id: 3, 
       name: 'BO Sud', 
@@ -50,19 +41,10 @@ export default function MapFlow() {
       stock: 120,
       status: 'warning',
       coordinates: '41.6761° N, 8.9039° E',
-      responsable: 'Pierre Rossi',
+      responsable: 'azerty tes ',
       color: '#FF6B00'
     },
-    { 
-      id: 4, 
-      name: 'Labo', 
-      position: { lat: 42.0, lng: 9.3 }, // approximatif
-      stock: 45,
-      status: 'inactive',
-      coordinates: 'Localisation Labo',
-      responsable: 'Service Logistique',
-      color: '#E74C3C'
-    },
+    
     { 
       id: 5,  
       name: 'Retour Constructeur', 
@@ -81,10 +63,10 @@ export default function MapFlow() {
       from: 'BO Nord',
       to: 'Magasin',
       quantity: 15,
-      date: '10/12/2025',
-      status: 'en-cours',
+      date: '12/12/2025',
+      status: 'pose',
       type: 'transfert',
-      estimatedArrival: '11/12/2025',
+      estimatedArrival: '14/12/2025',
       fromBase: bases[1],
       toBase: bases[0]
     },
@@ -100,18 +82,7 @@ export default function MapFlow() {
       fromBase: bases[0],
       toBase: bases[2]
     },
-    {
-      id: 3,
-      from: 'BO Sud',
-      to: 'Labo',
-      quantity: 3,
-      date: '08/12/2025',
-      status: 'en-cours',
-      type: 'retour',
-      estimatedArrival: '15/12/2025',
-      fromBase: bases[2],
-      toBase: bases[3]
-    },
+    
     {
       id: 4,
       from: 'BO Nord',

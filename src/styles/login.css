@@ -115,6 +115,9 @@
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 10px;
+   display: block !important;
+  position: relative !important;
+  z-index: 9999 !important;
 }
 
 .submit-btn:hover {

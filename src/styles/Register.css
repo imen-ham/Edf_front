@@ -5,9 +5,9 @@
     align-items: center;
     background: linear-gradient(135deg, #6eb0f1 0%, var(--edf-blue-dark) 100%);
     padding: 20px;
-  }
-  
-  .register-card {
+}
+
+.register-card {
     background: white;
     border-radius: 20px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -15,67 +15,69 @@
     max-width: 550px;
     overflow: hidden;
     animation: slideIn 0.5s ease-out;
-  }
-  
-  @keyframes slideIn {
+}
+
+@keyframes slideIn {
     from {
-      opacity: 0;
-      transform: translateY(-30px);
+        opacity: 0;
+        transform: translateY(-30px);
     }
     to {
-      opacity: 1;
-      transform: translateY(0);
+        opacity: 1;
+        transform: translateY(0);
     }
-  }
-  
-  .register-header {
-    background:linear-gradient(135deg, #6eb0f1 0%, var(--edf-blue-dark) 100%);
+}
+
+.register-header {
+    background: linear-gradient(135deg, #6eb0f1 0%, var(--edf-blue-dark) 100%);
     color: white;
     padding: 40px 30px;
     text-align: center;
-  }
-  
-  .register-header h1 {
+}
+
+.register-header h1 {
     margin: 0 0 10px 0;
     font-size: 32px;
     font-weight: 700;
-  }
-  
-  .register-header p {
+}
+
+.register-header p {
     margin: 0;
     opacity: 0.9;
     font-size: 16px;
-  }
-  
-  .register-form {
+}
+
+.register-form {
     padding: 40px 30px;
-  }
-  
-  .form-row {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
     margin-bottom: 25px;
-  }
-  
-  .form-group {
+}
+
+.form-group {
     margin-bottom: 25px;
-  }
-  
-  .form-row .form-group {
+}
+
+.form-row .form-group {
     margin-bottom: 0;
-  }
-  
-  .form-group label {
+}
+
+.form-group label {
     display: block;
     margin-bottom: 8px;
     color: #333;
     font-weight: 600;
     font-size: 14px;
-  }
-  
-  .form-group input,
-  .form-group select {
+}
+
+.form-group input,
+.form-group select {
     width: 100%;
     padding: 14px 16px;
     border: 2px solid #e0e0e0;
@@ -84,34 +86,51 @@
     transition: all 0.3s ease;
     background: #f8f9fa;
     box-sizing: border-box;
-  }
-  
-  .form-group input:focus,
-  .form-group select:focus {
+}
+
+.form-group input:focus,
+.form-group select:focus {
     outline: none;
     border-color: #667eea;
     background: white;
     box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-  }
-  
-  .form-group input.error,
-  .form-group select.error {
+}
+
+.form-group input.error,
+.form-group select.error {
     border-color: #ff4757;
     background: #fff5f5;
-  }
-  
-  .error-message {
+}
+
+.error-message {
     display: block;
     color: #ff4757;
     font-size: 13px;
     margin-top: 6px;
     font-weight: 500;
-  }
-  
-  .submit-btn {
+}
+
+/* ✅ Nouveau bloc : message succès/erreur */
+.form-message {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    color: #fff;
+    background-color: #667eea; /* bleu par défaut pour succès */
+    font-weight: 600;
+}
+
+/* Si tu veux différencier erreur et succès via une classe JS */
+.form-message.error {
+    background-color: #ff4757;
+}
+
+.submit-btn {
     width: 100%;
     padding: 16px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #6eb0f1 0%, var(--edf-blue-dark) 100%);
     color: white;
     border: none;
     border-radius: 10px;
@@ -120,69 +139,81 @@
     cursor: pointer;
     transition: all 0.3s ease;
     margin-top: 10px;
-  }
-  
-  .submit-btn:hover {
+     display: block !important;
+  position: relative !important;
+  z-index: 9999 !important;
+}
+
+.submit-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-  }
-  
-  .submit-btn:active {
+}
+
+.submit-btn:active {
     transform: translateY(0);
-  }
-  
-  .form-footer {
+}
+
+.form-footer {
     margin-top: 30px;
     text-align: center;
-  }
-  
-  .form-footer p {
+}
+
+.form-footer p {
     color: #666;
     font-size: 14px;
     margin: 0;
-  }
-  
-  .form-footer p a {
+}
+
+.form-footer p a {
     color: #667eea;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease;
-  }
-  
-  .form-footer p a:hover {
+}
+
+.form-footer p a:hover {
     color: #764ba2;
     text-decoration: underline;
-  }
-  
-  /* Responsive */
-  @media (max-width: 600px) {
+}
+
+/* Responsive */
+@media (max-width: 600px) {
     .register-container {
-      padding: 10px;
+        padding: 10px;
     }
-  
+
     .register-card {
-      border-radius: 15px;
+        border-radius: 15px;
+        
     }
-  
+.register-card,
+.register-form {
+    overflow: visible; /* permet au contenu de ne pas être caché */
+}
+
+.submit-btn {
+    margin-top: 20px; /* espace au-dessus pour être sûr qu'il soit visible */
+}
+
+
     .register-header {
-      padding: 30px 20px;
+        padding: 30px 20px;
     }
-  
+
     .register-header h1 {
-      font-size: 26px;
+        font-size: 26px;
     }
-  
+
     .register-form {
-      padding: 30px 20px;
+        padding: 30px 20px;
     }
-  
+
     .form-row {
-      grid-template-columns: 1fr;
-      gap: 0;
+        grid-template-columns: 1fr;
+        gap: 0;
     }
-  
+
     .form-row .form-group {
-      margin-bottom: 25px;
+        margin-bottom: 25px;
     }
-  }
-  
+}

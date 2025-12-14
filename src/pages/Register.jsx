@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import '../styles/Register.css';
 
+// ✅ Import de la fonction registerUser pour appeler l'API backend
+import { registerUser } from '../services/api';
+
 const Register = ({ setCurrentPage }) => {
   const [formData, setFormData] = useState({
     nom: '',
@@ -12,6 +15,7 @@ const Register = ({ setCurrentPage }) => {
   });
 
   const [errors, setErrors] = useState({});
+  const [message, setMessage] = useState(''); // ✅ Message de succès ou d'erreur
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -65,13 +69,35 @@ const Register = ({ setCurrentPage }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  // ✅ Bloc ajouté : handleSubmit qui se connecte au backend
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (validateForm()) {
-      console.log('Inscription:', formData);
-      // Ici, vous pouvez ajouter la logique d'inscription
-      alert('Inscription réussie !');
+      try {
+        const res = await registerUser({
+          nom: formData.nom,
+          prenom: formData.prenom,
+          email: formData.email,
+          mdp: formData.password, // ❗ le backend attend 'mdp'
+          profile: formData.profile
+        });
+
+        if (res.success) {
+          setMessage('Inscription réussie !');
+          console.log('Utilisateur inscrit :', res);
+
+          // ✅ Redirection vers la page login après inscription
+          setTimeout(() => {
+            setCurrentPage('login');
+          }, 1500);
+        } else {
+          setMessage(res.message);
+        }
+      } catch (error) {
+        console.error(error);
+        setMessage('Erreur serveur. Veuillez réessayer.');
+      }
     }
   };
 
@@ -174,6 +200,9 @@ const Register = ({ setCurrentPage }) => {
             </select>
             {errors.profile && <span className="error-message">{errors.profile}</span>}
           </div>
+
+          {/* ✅ Bloc ajouté : affichage du message succès ou erreur */}
+          {message && <div className="form-message">{message}</div>}
 
           <button type="submit" className="submit-btn">
             S'inscrire

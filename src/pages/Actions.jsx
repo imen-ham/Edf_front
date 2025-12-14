@@ -4,6 +4,7 @@ import '../styles/Actions.css';
 export default function Actions() {
   const [selectedAction, setSelectedAction] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   const quickActions = [
     { id: 1, title: 'Nouvelle pose', icon: '📦', color: '#27AE60', description: 'Enregistrer la pose d\'un nouveau concentrateur' },
@@ -15,11 +16,9 @@ export default function Actions() {
   ];
 
   const recentActions = [
-    { id: 1, type: 'Pose', user: 'Jean Dupont', emplacement: 'Magasin', date: '10/12/2025 14:32', status: 'success', details: 'Concentrateur CPL-2024-A342' },
-    { id: 2, type: 'Transfert', user: 'Marie Martin', emplacement: 'BO Nord → Magasin', date: '10/12/2025 13:15', status: 'success', details: '5 concentrateurs' },
-    { id: 3, type: 'Dépose HS', user: 'Pierre Rossi', emplacement: 'BO Sud', date: '10/12/2025 11:45', status: 'warning', details: 'Concentrateur défectueux CPL-2023-P89' },
-    { id: 4, type: 'Maintenance', user: 'Sophie Bernard', emplacement: 'Labo', date: '10/12/2025 09:20', status: 'success', details: 'Maintenance préventive programmée' },
-    { id: 5, type: 'Retour', user: 'Luc Santoni', emplacement: 'Retour constructeur', date: '09/12/2025 16:50', status: 'pending', details: '3 concentrateurs en attente' },
+        { id: 3, type: 'Pose', user: 'laeti', emplacement: 'BO Centre', date: '12/12/2025 17:11', status: 'pose', details: 'nouveau concentrateur' },
+    { id: 1, type: 'Pose', user: 'azerty', emplacement: 'Magasin', date: '12/12/2025 2:32', status: 'success', details: 'Concentrateur CPL-2024-A342' },
+    { id: 3, type: 'Dépose HS', user: 'teeest', emplacement: 'BO Sud', date: '12/12/2025 2:45', status: 'warning', details: 'Concentrateur défectueux CPL-2023-P89' },
   ];
 
   const handleActionClick = (action) => {
@@ -30,6 +29,18 @@ export default function Actions() {
   const closeModal = () => {
     setShowModal(false);
     setSelectedAction(null);
+    setSuccessMessage('');
+  };
+
+  const handleConfirm = () => {
+    // Ici tu pourrais ajouter la logique pour enregistrer les données
+    setSuccessMessage('✅ Votre pose a été enregistrée avec succès !');
+
+    // Message disparaît après 3 secondes
+    setTimeout(() => {
+      setSuccessMessage('');
+      closeModal();
+    }, 3000);
   };
 
   return (
@@ -95,22 +106,22 @@ export default function Actions() {
 
         <div className="stats-grid">
           <div className="stat-card stat-success">
-            <div className="stat-value">12</div>
+            <div className="stat-value">2</div>
             <div className="stat-label">Poses effectuées</div>
           </div>
 
           <div className="stat-card stat-info">
-            <div className="stat-value">8</div>
+            <div className="stat-value">0</div>
             <div className="stat-label">Transferts réalisés</div>
           </div>
 
           <div className="stat-card stat-warning">
-            <div className="stat-value">3</div>
+            <div className="stat-value">1</div>
             <div className="stat-label">Déposes HS</div>
           </div>
 
           <div className="stat-card stat-orange">
-            <div className="stat-value">5</div>
+            <div className="stat-value">0</div>
             <div className="stat-label">Retours constructeur</div>
           </div>
         </div>
@@ -127,12 +138,14 @@ export default function Actions() {
             </div>
 
             <div className="modal-body">
+              {successMessage && <div className="success-message">{successMessage}</div>}
+
               <p className="modal-description">{selectedAction.description}</p>
 
               <div className="modal-form">
                 <div className="form-group">
                   <label>N° de concentrateur</label>
-                  <input type="text" placeholder="CPL-2024-XXXX" />
+                  <input type="text" placeholder="KBxxxxxxxxx" />
                 </div>
 
                 <div className="form-group">
@@ -145,10 +158,12 @@ export default function Actions() {
                     <option>Labo</option>
                   </select>
                 </div>
+
                 <div className="form-group">
                   <label>Statut</label>
-                  <input type="text" placeholder="HS" />
+                  <input type="text" placeholder="" />
                 </div>
+
                 <div className="form-group">
                   <label>Date</label>
                   <input type="text" placeholder="" />
@@ -162,7 +177,11 @@ export default function Actions() {
 
               <div className="modal-actions">
                 <button className="btn-cancel" onClick={closeModal}>Annuler</button>
-                <button className="btn-confirm" style={{ backgroundColor: selectedAction.color }}>
+                <button
+                  className="btn-confirm"
+                  style={{ backgroundColor: selectedAction.color }}
+                  onClick={handleConfirm}
+                >
                   Confirmer
                 </button>
               </div>
